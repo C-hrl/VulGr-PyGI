@@ -1,5 +1,7 @@
 # PYGGI(Python General Framework for Genetic Improvement) [![Build Status](https://travis-ci.org/coinse/pyggi.svg?branch=master)](https://travis-ci.org/coinse/pyggi) [![Coverage Status](https://coveralls.io/repos/github/coinse/pyggi/badge.svg?branch=master)](https://coveralls.io/github/coinse/pyggi?branch=master)
 
+#VulGR PyGI (Vulnerability Generation with Python Genetic Improvement (or Disimprovement in this case))
+
 <p align="center">
   <img alt="PYGGI logo" src="/images/pyggi_logo.png" />
 </p>

@@ -15,7 +15,6 @@
  import semmle.code.java.dataflow.FlowSources
  import semmle.code.java.security.XSS
  import DataFlow::PathGraph
-
  import semmle.code.java.dataflow.internal.DataFlowImpl
  
  class XssConfig extends TaintTracking::Configuration {
@@ -35,7 +34,7 @@
  }
  
  from DataFlow::PathNode source, DataFlow::PathNode sink, XssConfig conf
- where pathSuccPlus(source, sink) and source.getConfiguration() = conf and sink.getConfiguration() = conf
+ where sink = any(PathNodeSink cSink | not exists(cSink.getSinkGroup())) and sink.getConfiguration() = conf
  select sink.getNode(), source, sink, "Cross-site scripting vulnerability due to a $@.",
    source.getNode(), "user-provided value"
  

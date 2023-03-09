@@ -3533,7 +3533,7 @@ private class PathNodeMid extends PathNodeImpl, TPathNodeMid {
  * intermediate nodes in order to uniquely correspond to a given sink by
  * excluding the `CallContext`.
  */
-private class PathNodeSink extends PathNodeImpl, TPathNodeSink {
+class PathNodeSink extends PathNodeImpl, TPathNodeSink {
   NodeEx node;
   FlowState state;
   Configuration config;
@@ -3583,7 +3583,7 @@ class PathNodeSourceGroup extends PathNodeImpl, TPathNodeSourceGroup {
   }
 }
 
-private class PathNodeSinkGroup extends PathNodeImpl, TPathNodeSinkGroup {
+class PathNodeSinkGroup extends PathNodeImpl, TPathNodeSinkGroup {
   string sinkGroup;
   Configuration config;
 

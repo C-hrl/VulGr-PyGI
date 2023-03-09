@@ -12,7 +12,7 @@ from pyggi.tree import StmtReplacement, StmtInsertion, StmtDeletion
 from pyggi.algorithms import LocalSearch
 
 class MyProgram(AbstractProgram):
-    def compute_fitness(self, result, return_code, stdout, stderr, elapsed_time):
+    def compute_fitness(self, result, return_codde, stdout, stderr, elapsed_time):
         import re
         m = re.findall("runtime: ([0-9.]+)", stdout)
         if len(m) > 0:

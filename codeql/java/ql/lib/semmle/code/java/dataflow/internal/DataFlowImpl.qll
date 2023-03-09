@@ -3265,7 +3265,7 @@ private class AccessPathCons1 extends AccessPath, TAccessPathCons1 {
   }
 }
 
-abstract private class PathNodeImpl extends TPathNode {
+abstract class PathNodeImpl extends TPathNode {
   /** Gets the `FlowState` of this node. */
   abstract FlowState getState();
 
@@ -3370,11 +3370,11 @@ private predicate directReach(PathNodeImpl n) {
 private predicate reach(PathNodeImpl n) { directReach(n) or Subpaths::retReach(n) }
 
 /** Holds if `n1.getASuccessor() = n2` and `n2` can reach a sink. */
-private predicate pathSucc(PathNodeImpl n1, PathNodeImpl n2) {
+predicate pathSucc(PathNodeImpl n1, PathNodeImpl n2) {
   n1.getANonHiddenSuccessor() = n2 and directReach(n2)
 }
 
-private predicate pathSuccPlus(PathNodeImpl n1, PathNodeImpl n2) = fastTC(pathSucc/2)(n1, n2)
+predicate pathSuccPlus(PathNodeImpl n1, PathNodeImpl n2) = fastTC(pathSucc/2)(n1, n2)
 
 /**
  * A `Node` augmented with a call context (except for sinks), an access path, and a configuration.
@@ -3957,7 +3957,7 @@ private module Subpaths {
  * Will only have results if `configuration` has non-empty sources and
  * sinks.
  */
-private predicate hasFlowPath(
+predicate hasFlowPath(
   PathNodeImpl flowsource, PathNodeImpl flowsink, Configuration configuration
 ) {
   flowsource.isFlowSource() and

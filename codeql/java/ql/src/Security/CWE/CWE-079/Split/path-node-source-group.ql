@@ -35,6 +35,6 @@
  }
   
  from DataFlow::PathNode source, DataFlow::PathNode sink, XssConfig conf
- where source instanceof PathNodeSourceGroup
+ where source.getConfiguration() = conf and source instanceof PathNodeSourceGroup
  select sink.getNode(), source, sink, "Cross-site scripting vulnerability due to a $@.",
  source.getNode(), "user-provided value"

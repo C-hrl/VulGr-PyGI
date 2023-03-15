@@ -56,7 +56,7 @@ class MyTabuSearch(LocalSearch):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='VulGr PyGGI')
-    parser.add_argument('--project_path', type=str, default='../sample/Triangle_bug_java') #TODO
+    parser.add_argument('--project_path', type=str, default='../vulgr')
     parser.add_argument('--mode', type=str, default='line')
     parser.add_argument('--epoch', type=int, default=30,
         help='total epoch(default: 30)')
@@ -65,15 +65,15 @@ if __name__ == "__main__":
     args = parser.parse_args()
     assert args.mode in ['line', 'tree']
 
-    if args.mode == 'line':
+    if args.mode == 'line': #TODO asap
         config = {
-            "target_files": ["Triangle.java"], #TODO
-            "test_command": "./run.sh"
+            "target_files": ["Triangle.java"], #TODO add files in which the vulnerabilities were found
+            "test_command": "./run.sh" #TODO edit this run.sh
         }
         program = LineProgram(args.project_path, config=config)
         tabu_search = MyTabuSearch(program)
-        tabu_search.operators = [LineReplacement, LineInsertion, LineDeletion]
-    elif args.mode == 'tree':
+        tabu_search.operators = [LineReplacement, LineInsertion, LineDeletion] #TODO have a look at other operators/make custom ones?
+    elif args.mode == 'tree': #TODO (after "line")
         config = {
             "target_files": ["Triangle.java.xml"], #TODO Seems like tree-based mutations require srcML
             "test_command": "./run.sh"

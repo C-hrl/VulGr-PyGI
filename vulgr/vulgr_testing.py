@@ -1,13 +1,36 @@
 import subprocess
 
-#
-codeql = "/content/codeql/codeql"
-codedb = "/content/codeDB"
-vulgr = "/content/VulGr-PyGI"
+
+def query_command(query_name):
+    """Returns a string corresponding to the provided query's name (made for subqueries)
+
+    Args:
+        query_name (String): Name of the query to execute
+
+    Returns:
+        command_to_execute (String): executable command for the 
+    """
+    codeql_exec = "/content/codeql/codeql"
+    path_to_codedb = "/content/codeDB"
+    result_path = "/content/results/VUL4J-34"
+    cwe_path = "/content/VulGr-PyGI/codeql/java/ql/src/Security/CWE/CWE-079/Split"
+
+    command_to_execute = f"{codeql_exec} database analyse --format=csv --output={result_path}_{query_name}.csv {path_to_codedb} {cwe_path}/{query_name}.ql --threads=16 --ram=12000"
+    return command_to_execute
 
 
-#listing all commands that will be executed
-cmd_path = f"cd {vulgr}" #
-cmd_sub_any = f"{codeql} database analyze --format=csv --output=/content/results/VUL4J-34_any.csv {codedb} {cmd_path}/codeql/java/ql/src/Security/CWE/CWE-079/Split/any.ql --threads=16 --ram=12000"
-cmd_list = [cmd_path, cmd_sub_any]
-result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True)
+query_list = ["any",
+              "flowsource-is-flowsink",
+              "is-flowsink",
+              "is-source",
+              "not-getsinkgroup",
+              "path-node-source-group",
+              "path-node-sink-group",
+              "path-succ"
+              ]
+result = ""
+result += subprocess.run("cd /content/VulGr-PyGI", shell=True, capture_output=True, text=True)
+for query in query_list:
+    result += subprocess.run(query_command(query), shell=True,
+                   capture_output=True, text=True)
+print(result)

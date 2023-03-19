@@ -32,5 +32,5 @@ result = ""
 result += subprocess.run("cd /content/VulGr-PyGI", shell=True, capture_output=True, text=True)
 for query in query_list:
     result += subprocess.run(query_command(query), shell=True,
-                   capture_output=True, text=True)
+                   capture_output=True, text=True).stdout
 print(result)

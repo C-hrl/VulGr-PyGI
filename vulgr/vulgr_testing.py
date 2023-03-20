@@ -29,7 +29,7 @@ query_list = ["any",
               "path-succ"
               ]
 result = ""
-result += subprocess.run("cd /content/VulGr-PyGI", shell=True, capture_output=True, text=True)
+result += subprocess.run("cd /content/VulGr-PyGI", shell=True, capture_output=True, text=True).stdout
 for query in query_list:
     result += subprocess.run(query_command(query), shell=True,
                    capture_output=True, text=True).stdout

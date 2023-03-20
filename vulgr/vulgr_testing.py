@@ -1,4 +1,6 @@
 import subprocess
+from pathlib import Path
+import csv
 
 
 def query_command(query_name):
@@ -28,10 +30,19 @@ query_list = ["any",
               "path-node-sink-group",
               "path-succ"
               ]
+subprocess.run("cd /content/VulGr-PyGI", shell=True, capture_output=True, text=True).stdout
+
 result = ""
-result += subprocess.run("cd /content/VulGr-PyGI", shell=True, capture_output=True, text=True).stdout
 for query in query_list:
-    print(query_command(query))
     result += subprocess.run(query_command(query), shell=True,
                    capture_output=True, text=True).stderr
-print(result)
+NbSuccessfulQuery = result.count("Interpreting")
+print(f"*****\n{NbSuccessfulQuery}/{len(query_list)} queries have been successfully executed!\n*****")
+
+files = Path("/content/results").glob('*')
+for file in files:
+    with open(file, 'r') as file:
+        csvreader = csv.reader(file)
+        for row in csvreader:
+            print(row)
+    print(file)

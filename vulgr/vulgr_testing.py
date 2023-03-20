@@ -15,7 +15,7 @@ def query_command(query_name):
     result_path = "/content/results/VUL4J-34"
     cwe_path = "/content/VulGr-PyGI/codeql/java/ql/src/Security/CWE/CWE-079/Split"
 
-    command_to_execute = f"{codeql_exec} database analyse --format=csv --output={result_path}_{query_name}.csv {path_to_codedb} {cwe_path}/{query_name}.ql --threads=16 --ram=12000"
+    command_to_execute = f"{codeql_exec} database analyze --format=csv --output={result_path}_{query_name}.csv {path_to_codedb} {cwe_path}/{query_name}.ql --threads=16 --ram=12000"
     return command_to_execute
 
 
@@ -31,6 +31,7 @@ query_list = ["any",
 result = ""
 result += subprocess.run("cd /content/VulGr-PyGI", shell=True, capture_output=True, text=True).stdout
 for query in query_list:
+    print(query_command(query))
     result += subprocess.run(query_command(query), shell=True,
-                   capture_output=True, text=True).stdout
+                   capture_output=True, text=True).stderr
 print(result)

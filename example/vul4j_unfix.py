@@ -1,7 +1,7 @@
 """
 Automated vulnerability injection ::
 """
-import sys
+from pathlib import Path
 import random
 import argparse
 import os
@@ -66,9 +66,14 @@ if __name__ == "__main__":
     assert args.mode in ['line', 'tree']
 
     if args.mode == 'line': #TODO asap
+        targeted_files = []
+        for file in Path("/content/VulGr-PyGI/vulgr/VUL4J-34/core/src/main/java/org/apache/struts2/components/").glob('*'):
+            if file.is_file():
+                with open(file, 'r') as file:
+                    targeted_files.append(file.name.split("/")[-1])
         config = {
-            "target_files": ["Triangle.java"], #TODO add files in which the vulnerabilities were found
-            "test_command": "./run.sh" #TODO edit this run.sh
+            "target_files": targeted_files, #TODO add files in which the vulnerabilities were found
+            "test_command": "python vulgr_testing.py" #TODO edit this run.sh
         }
         program = LineProgram(args.project_path, config=config)
         tabu_search = MyTabuSearch(program)
@@ -76,7 +81,7 @@ if __name__ == "__main__":
     elif args.mode == 'tree': #TODO (after "line")
         config = {
             "target_files": ["Triangle.java.xml"], #TODO Seems like tree-based mutations require srcML
-            "test_command": "./run.sh"
+            "test_command": "python vulgr_testing.py"
         }
         program = MyTreeProgram(args.project_path, config=config)
         tabu_search = MyTabuSearch(program)

@@ -39,10 +39,9 @@ for query in query_list:
 NbSuccessfulQuery = result.count("Interpreting")
 print(f"*****\n{NbSuccessfulQuery}/{len(query_list)} queries have been successfully executed!\n*****")
 
-files = Path("/content/results").glob('*')
-for file in files:
+for file in Path("/content/results").glob('*'):
     with open(file, 'r') as file:
         csvreader = csv.reader(file)
-        for row in csvreader:
-            print(row)
-    print(file)
+        # for row in csvreader:
+        #     print(row)
+    print(file.name.split("/")[-1])

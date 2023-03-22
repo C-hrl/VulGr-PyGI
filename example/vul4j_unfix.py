@@ -22,7 +22,7 @@ def query_command(query_name):
             query_name (String): Name of the query to execute
 
         Returns:
-            command_to_execute (String): executable command for the 
+            command_to_execute (String): executable command
         """
     codeql_exec = "/content/codeql/codeql"
     path_to_codedb = "/content/codeDB"
@@ -32,9 +32,23 @@ def query_command(query_name):
     command_to_execute = f"{codeql_exec} database analyze --format=csv --output={result_path}_{query_name}.csv {path_to_codedb} {cwe_path}/{query_name}.ql --threads=16 --ram=12000"
     return command_to_execute
 
-class MyProgram(AbstractProgram):
-    def compute_fitness(self, result, return_codde, stdout, stderr, elapsed_time):
-        query_list = ["any",
+def create_database():
+    """Returns a string regarding the creation of the CodeQL Database
+
+    Returns:
+        output (String) : String output from running the database creation command
+    """
+    subprocess.run("cd /content/tmp/vul4j/VUL4J-34", shell=True, capture_output=True, text=True).stdout
+    output = subprocess.run("/content/codeql/codeql database create /content/codeDB --language=java --overwrite --command='vul4j compile -d /content/tmp/vul4j/VUL4J-34'", shell=True, capture_output=True, text=True).stdout
+    return output
+
+def run_queries():
+    """Returns the resulting String after running the queries
+
+    Returns:
+        output (String) : String output from running the queries' commands
+    """
+    query_list = ["any",
               "flowsource-is-flowsink",
               "is-flowsink",
               "is-source",
@@ -43,23 +57,34 @@ class MyProgram(AbstractProgram):
               "path-node-sink-group",
               "path-succ"
               ]
-        subprocess.run("cd /content/VulGr-PyGI", shell=True, capture_output=True, text=True).stdout
+    subprocess.run("cd /content/VulGr-PyGI", shell=True, capture_output=True, text=True).stdout
 
-        result = ""
-        for query in query_list:
-            result += subprocess.run(query_command(query), shell=True,
-                        capture_output=True, text=True).stderr
-        NbSuccessfulQuery = result.count("Interpreting")
-        print(f"*****\n{NbSuccessfulQuery}/{len(query_list)} queries have been successfully executed!\n*****")
+    print_result = ""
+    for query in query_list:
+        print_result += subprocess.run(query_command(query), shell=True,
+                    capture_output=True, text=True).stderr
+    NbSuccessfulQuery = print_result.count("Interpreting")
+    print(f"*****\n{NbSuccessfulQuery}/{len(query_list)} queries have been successfully executed!\n*****")
 
-        for file in Path("/content/results").glob('*'):
-            with open(file, 'r') as file:
-                csvreader = csv.reader(file)
-                # for row in csvreader:
-                #     print(row)
-            print(file.name.split("/")[-1])
+    for file in Path("/content/results").glob('*'):
+        with open(file, 'r') as file:
+            csvreader = csv.reader(file)
+            # for row in csvreader:
+            #     print(row)
+        print(file.name.split("/")[-1])
+
+class MyProgram(AbstractProgram):
+    def compute_fitness(self, result, return_codde, stdout, stderr, elapsed_time):
+        db_creation_result = create_database()
+        if "e" in db_creation_result:
+            result.status = 'TEST'
+        
+        else:
+            run_queries()
+            result.fitness = 1
+        
         import re
-        m = re.findall(" ", stdout)
+        m = re.findall("VUL4J", stdout)
         if len(m) > 0:
             runtime = m[0]
             failed = re.findall("([0-9]+) failed", stdout)
@@ -160,7 +185,7 @@ if __name__ == "__main__":
         tabu_search = MyTabuSearch(program)
         tabu_search.operators = [StmtReplacement, StmtInsertion, StmtDeletion]
 
-    result = tabu_search.run(warmup_reps=1, epoch=args.epoch, max_iter=args.iter)
+    result = tabu_search.run(warmup_reps=0, epoch=args.epoch, max_iter=args.iter)
     print("======================RESULT======================")
     print(result)
     program.remove_tmp_variant()

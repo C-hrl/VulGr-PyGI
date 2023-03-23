@@ -76,23 +76,12 @@ def run_queries():
 class MyProgram(AbstractProgram):
     def compute_fitness(self, result, return_codde, stdout, stderr, elapsed_time):
         db_creation_result = create_database()
-        if "e" in db_creation_result:
-            result.status = 'TEST'
+        if "FAILURE" in db_creation_result:
+            result.status = 'BUILD FAILED'
         
         else:
             run_queries()
             result.fitness = 1
-        
-        import re
-        m = re.findall("VUL4J", stdout)
-        if len(m) > 0:
-            runtime = m[0]
-            failed = re.findall("([0-9]+) failed", stdout)
-            pass_all = len(failed) == 0
-            failed = int(failed[0]) if not pass_all else 0
-            result.fitness = failed
-        else:
-            result.status = 'PARSE_ERROR'
 
 class MyLineProgram(LineProgram, MyProgram):
     pass

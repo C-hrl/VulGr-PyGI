@@ -33,20 +33,18 @@ def query_command(query_name):
     return command_to_execute
 
 def create_database():
-    """Returns a string regarding the creation of the CodeQL Database
+    """Returns the resulting String after trying to create the CodeQL Database
 
     Returns:
         output (String) : String output from running the database creation command
     """
-    subprocess.run("cd /content/tmp/vul4j/VUL4J-34", shell=True, capture_output=True, text=True).stdout
+    subprocess.run("cd /content/VUL4J-34", shell=True, capture_output=True, text=True).stdout
     output = subprocess.run("/content/codeql/codeql database create /content/codeDB --language=java --overwrite --command='vul4j compile -d /content/tmp/vul4j/VUL4J-34'", shell=True, capture_output=True, text=True).stdout
     return output
 
 def run_queries():
-    """Returns the resulting String after running the queries
-
-    Returns:
-        output (String) : String output from running the queries' commands
+    """
+    Returns the resulting String after running the queries
     """
     query_list = ["any",
               "flowsource-is-flowsink",
@@ -64,7 +62,8 @@ def run_queries():
         print_result += subprocess.run(query_command(query), shell=True,
                     capture_output=True, text=True).stderr
     NbSuccessfulQuery = print_result.count("Interpreting")
-    print(f"*****\n{NbSuccessfulQuery}/{len(query_list)} queries have been successfully executed!\n*****")
+    return NbSuccessfulQuery/len(query_list)
+    # print(f"*****\n{NbSuccessfulQuery}/{len(query_list)} queries have been successfully executed!\n*****")
 
     for file in Path("/content/results").glob('*'):
         with open(file, 'r') as file:
@@ -76,12 +75,15 @@ def run_queries():
 class MyProgram(AbstractProgram):
     def compute_fitness(self, result, return_codde, stdout, stderr, elapsed_time):
         db_creation_result = create_database()
-        if "FAILURE" in db_creation_result:
+        if "failed" in db_creation_result:
             result.status = 'BUILD FAILED'
         
         else:
-            run_queries()
-            result.fitness = 1
+            result.fitness = run_queries()
+            
+    @property
+    def tmp_path(self):
+        return "/content/VUL4J-34-MODIFIED/core/src/main/java/org/apache/struts2/components"
 
 class MyLineProgram(LineProgram, MyProgram):
     pass
@@ -125,9 +127,7 @@ class MyTabuSearch(LocalSearch):
         return fitness > best_fitness
 
     def stopping_criterion(self, iter, fitness):
-        if fitness == 1:
-            return True
-        return False
+        return fitness == 1
     
 class MyLocalSearch(LocalSearch):
     def get_neighbour(self, patch):
@@ -154,7 +154,7 @@ if __name__ == "__main__":
 
     if args.mode == 'line': #TODO asap
         files_to_improve = []
-        for file in Path("/content/VulGr-PyGI/vulgr/VUL4J-34/core/src/main/java/org/apache/struts2/components/").glob('*'):
+        for file in Path("/content/VUL4J-34/core/src/main/java/org/apache/struts2/components/").glob('*'):
             if file.is_file():
                 with open(file, 'r') as file:
                     files_to_improve.append(file.name.split("/")[-1])
@@ -174,7 +174,7 @@ if __name__ == "__main__":
         tabu_search = MyTabuSearch(program)
         tabu_search.operators = [StmtReplacement, StmtInsertion, StmtDeletion]
 
-    result = tabu_search.run(warmup_reps=0, epoch=args.epoch, max_iter=args.iter)
+    result = tabu_search.run(warmup_reps=1, epoch=args.epoch, max_iter=args.iter)
     print("======================RESULT======================")
     print(result)
     program.remove_tmp_variant()

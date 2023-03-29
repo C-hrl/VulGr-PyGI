@@ -39,7 +39,7 @@ def create_database():
         output (String) : String output from running the database creation command
     """
     subprocess.run("cd /content/VUL4J-34", shell=True, capture_output=True, text=True).stdout
-    output = subprocess.run("/content/codeql/codeql database create /content/codeDB --language=java --overwrite --command='vul4j compile -d /content/tmp/vul4j/VUL4J-34'", shell=True, capture_output=True, text=True).stdout
+    output = subprocess.run("/content/codeql/codeql database create /content/codeDB --language=java --overwrite --command='vul4j compile -d /content/VUL4J-34-MODIFIED'", shell=True, capture_output=True, text=True).stdout
     return output
 
 def run_queries():

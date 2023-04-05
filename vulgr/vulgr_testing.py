@@ -22,8 +22,8 @@ def create_database():
     Returns:
         output (String) : String output from running the database creation command
     """
-    subprocess.run("cd /content/VUL4J-34", shell=True, capture_output=True, text=True).stdout
-    output = subprocess.run("/content/codeql/codeql database create /content/codeDB --language=java --overwrite --command='vul4j compile -d /content/VUL4J-34-MODIFIED' --threads=16 --ram=12000", shell=True, capture_output=True, text=True).stdout
+    output = subprocess.run("/content/codeql/codeql database create /content/codeDB --language=java --overwrite --command='vul4j compile -d /content/VUL4J-34-MODIFIED' --threads=16 --ram=12000", shell=True, capture_output=True, text=True, cwd="/content/VUL4J-34-MODIFIED").stdout
+    print(output)
     return output
 
 def execute_all_queries():
@@ -67,8 +67,6 @@ query_list = ["any",
               "path-succ"
               ]
 
-subprocess.run("cd /content/VUL4J-34", shell=True, capture_output=True, text=True).stdout
-
 timer.start()
 db_creation_result = create_database()
 timer.end("database creation")
@@ -76,14 +74,12 @@ if "failed" in db_creation_result:
     print("failed")
 else:
     timer.start()
-    result = ""
-    result += subprocess.run(execute_all_queries(), shell=True,
-                    capture_output=True, text=True).stderr
+    print(subprocess.run(execute_all_queries(), shell=True, capture_output=True, text=True, cwd="/content").stderr)
     timer.end("running all queries")
     timer.start()
     for query in query_list:
-        subprocess.run(query_command(query), shell=True,
-                    capture_output=True, text=True).stderr
+        print(subprocess.run(query_command(query), shell=True,
+                    capture_output=True, text=True).stderr)
     timer.end("individual queries")
 
     # for file in Path("/content/results").glob('*'):

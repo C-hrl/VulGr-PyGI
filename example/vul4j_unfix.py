@@ -15,54 +15,37 @@ import subprocess
 from pathlib import Path
 import csv
 
-def query_command(query_name):
-    """Returns a string corresponding to the provided query's name (made for subqueries)
-
-        Args:
-            query_name (String): Name of the query to execute
-
-        Returns:
-            command_to_execute (String): executable command
-        """
-    codeql_exec = "/content/codeql/codeql"
-    path_to_codedb = "/content/codeDB"
-    result_path = "/content/results/VUL4J-34"
-    cwe_path = "/content/VulGr-PyGI/codeql/java/ql/src/Security/CWE/CWE-079/Split"
-
-    command_to_execute = f"{codeql_exec} database analyze --format=csv --output={result_path}_{query_name}.csv {path_to_codedb} {cwe_path}/{query_name}.ql --threads=16 --ram=12000"
-    return command_to_execute
-
 def create_database():
     """Returns the resulting String after trying to create the CodeQL Database
 
     Returns:
         output (String) : String output from running the database creation command
     """
-    subprocess.run("cd /content/VUL4J-34", shell=True, capture_output=True, text=True).stdout
-    output = subprocess.run("/content/codeql/codeql database create /content/codeDB --language=java --overwrite --command='vul4j compile -d /content/VUL4J-34-MODIFIED'", shell=True, capture_output=True, text=True).stdout
+    output = subprocess.run("/content/codeql/codeql database create /content/codeDB --language=java --overwrite --command='vul4j compile -d /content/VUL4J-34-MODIFIED'", shell=True, capture_output=True, text=True, cwd="/content/VUL4J-34-MODIFIED").stdout
     return output
+
+def execute_all_queries():
+    """Returns a string corresponding to the provided query's name (made for subqueries)
+
+    Returns:
+        command_to_execute (String): executable command for the 
+    """
+    codeql_exec = "/content/codeql/codeql"
+    path_to_codedb = "/content/codeDB"
+    result_path = "/content/results/VUL4J-34"
+    cwe_path = "/content/VulGr-PyGI/codeql/java/ql/src/Security/CWE/CWE-079/Split"
+
+    command_to_execute = f"{codeql_exec} database analyze --format=csv --output={result_path}_result.csv {path_to_codedb} {cwe_path} --threads=16 --ram=12000"
+    return command_to_execute
 
 def run_queries():
     """
     Returns the resulting String after running the queries
     """
-    query_list = ["any",
-              "flowsource-is-flowsink",
-              "is-flowsink",
-              "is-source",
-              "not-getsinkgroup",
-              "path-node-source-group",
-              "path-node-sink-group",
-              "path-succ"
-              ]
-    subprocess.run("cd /content/VulGr-PyGI", shell=True, capture_output=True, text=True).stdout
-
-    print_result = ""
-    for query in query_list:
-        print_result += subprocess.run(query_command(query), shell=True,
-                    capture_output=True, text=True).stderr
-    NbSuccessfulQuery = print_result.count("Interpreting")
-    return NbSuccessfulQuery/len(query_list)
+    result_message = subprocess.run(execute_all_queries(), shell=True,
+                    capture_output=True, text=True, cwd="/content").stderr
+    NbSuccessfulQuery = result_message.count("Interpreting")
+    return 1 #TODO
     # print(f"*****\n{NbSuccessfulQuery}/{len(query_list)} queries have been successfully executed!\n*****")
 
     for file in Path("/content/results").glob('*'):

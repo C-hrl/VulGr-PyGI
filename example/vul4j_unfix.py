@@ -76,8 +76,7 @@ class MyProgram(AbstractProgram):
     def compute_fitness(self, result, return_codde, stdout, stderr, elapsed_time):
         db_creation_result = create_database()
         if "failed" in db_creation_result:
-            result.status = 'BUILD FAILED'
-        
+            result.status = 'PARSE_ERROR'
         else:
             result.fitness = run_queries()
             

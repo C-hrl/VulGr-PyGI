@@ -1,13 +1,33 @@
 import subprocess
 from pathlib import Path
+import time
 import csv
 
+class timer:
+    START_TIME = 0
 
-def query_command(query_name):
+    def start():
+        timer.START_TIME = time.time()
+        
+    def end(message):
+        if(timer.START_TIME == 0):
+            print("call start() method first")
+        else:
+            print(message + " took " + str(time.time() - timer.START_TIME))
+        
+        
+def create_database():
+    """Returns the resulting String after trying to create the CodeQL Database
+
+    Returns:
+        output (String) : String output from running the database creation command
+    """
+    subprocess.run("cd /content/VUL4J-34", shell=True, capture_output=True, text=True).stdout
+    output = subprocess.run("/content/codeql/codeql database create /content/codeDB --language=java --overwrite --command='vul4j compile -d /content/VUL4J-34-MODIFIED' --threads=16 --ram=12000", shell=True, capture_output=True, text=True).stdout
+    return output
+
+def execute_all_queries():
     """Returns a string corresponding to the provided query's name (made for subqueries)
-
-    Args:
-        query_name (String): Name of the query to execute
 
     Returns:
         command_to_execute (String): executable command for the 
@@ -17,9 +37,25 @@ def query_command(query_name):
     result_path = "/content/results/VUL4J-34"
     cwe_path = "/content/VulGr-PyGI/codeql/java/ql/src/Security/CWE/CWE-079/Split"
 
-    command_to_execute = f"{codeql_exec} database analyze --format=csv --output={result_path}_{query_name}.csv {path_to_codedb} {cwe_path}/{query_name}.ql --threads=16 --ram=12000"
+    command_to_execute = f"{codeql_exec} database analyze --format=csv --output={result_path}_result.csv {path_to_codedb} {cwe_path} --threads=16 --ram=12000"
     return command_to_execute
 
+def query_command(query_name):
+    """Returns a string corresponding to the provided query's name (made for subqueries)
+
+        Args:
+            query_name (String): Name of the query to execute
+
+        Returns:
+            command_to_execute (String): executable command
+        """
+    codeql_exec = "/content/codeql/codeql"
+    path_to_codedb = "/content/codeDB"
+    result_path = "/content/results/VUL4J-34"
+    cwe_path = "/content/VulGr-PyGI/codeql/java/ql/src/Security/CWE/CWE-079/Split"
+
+    command_to_execute = f"{codeql_exec} database analyze --format=csv --output={result_path}_{query_name}.csv {path_to_codedb} {cwe_path}/{query_name}.ql --threads=16 --ram=12000"
+    return command_to_execute
 
 query_list = ["any",
               "flowsource-is-flowsink",
@@ -30,18 +66,29 @@ query_list = ["any",
               "path-node-sink-group",
               "path-succ"
               ]
-subprocess.run("cd /content/VulGr-PyGI", shell=True, capture_output=True, text=True).stdout
 
-result = ""
-for query in query_list:
-    result += subprocess.run(query_command(query), shell=True,
-                   capture_output=True, text=True).stderr
-NbSuccessfulQuery = result.count("Interpreting")
-print(f"*****\n{NbSuccessfulQuery}/{len(query_list)} queries have been successfully executed!\n*****")
+subprocess.run("cd /content/VUL4J-34", shell=True, capture_output=True, text=True).stdout
 
-for file in Path("/content/results").glob('*'):
-    with open(file, 'r') as file:
-        csvreader = csv.reader(file)
-        # for row in csvreader:
-        #     print(row)
-    print(file.name.split("/")[-1])
+timer.start()
+db_creation_result = create_database()
+timer.end("database creation")
+if "failed" in db_creation_result:
+    print("failed")
+else:
+    timer.start()
+    result = ""
+    result += subprocess.run(execute_all_queries(), shell=True,
+                    capture_output=True, text=True).stderr
+    timer.end("running all queries")
+    timer.start()
+    for query in query_list:
+        subprocess.run(query_command(query), shell=True,
+                    capture_output=True, text=True).stderr
+    timer.end("individual queries")
+
+    # for file in Path("/content/results").glob('*'):
+    #     with open(file, 'r') as file:
+    #         csvreader = csv.reader(file)
+    #         # for row in csvreader:
+    #         #     print(row)
+    #     print(file.name.split("/")[-1])

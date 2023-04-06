@@ -1,5 +1,5 @@
 /**
- * @name Cross-site scripting
+ * @name flowsource_is_flowsink
  * @description Writing user input directly to a web page
  *              allows for a cross-site scripting vulnerability.
  * @kind path-problem

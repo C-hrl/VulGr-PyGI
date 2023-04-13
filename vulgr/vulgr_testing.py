@@ -27,23 +27,36 @@ class vulnerable_file:
         self.path_succ = False
     
     def check_vulnerability_type(self, name):
-        match name:
-            case "is-source":
-                self.is_source = True
-            case "any":
-                self.any = True
-            case "flowsource-is-flowsink":
-                self.flowsource_is_flowsink = True
-            case "is-flowsink":
-                self.is_flowsink = True
-            case "not-getsourcegroup":
-                self.not_getsourcegroup = True
-            case "path-node-sink-group":
-                self.path_node_sink_group = True
-            case "path-node-source-group":
-                self.path_node_source_group = True
-            case "path-succ":
-                self.path_succ = True
+        if(name == "is-source"):
+            self.is_source = True
+        elif(name == "flowsource-is-flowsink"):
+            self.flowsource_is_flowsink = True
+        elif(name == "is-flowsink"):
+            self.is_flowsink = True
+        elif(name == "not-getsourcegroup"):
+            self.not_getsourcegroup = True
+        elif(name == "path-node-source-group"):
+            self.path_node_source_group = True
+        elif(name == "path-succ"):
+            self.path_succ = True
+        
+        # match name:
+        #     case "is-source":
+        #         self.is_source = True
+        #     case "any":
+        #         self.any = True
+        #     case "flowsource-is-flowsink":
+        #         self.flowsource_is_flowsink = True
+        #     case "is-flowsink":
+        #         self.is_flowsink = True
+        #     case "not-getsourcegroup":
+        #         self.not_getsourcegroup = True
+        #     case "path-node-sink-group":
+        #         self.path_node_sink_group = True
+        #     case "path-node-source-group":
+        #         self.path_node_source_group = True
+        #     case "path-succ":
+        #         self.path_succ = True
                 
     def compute_fitness(self):
         FITNESS_VALUE = 0

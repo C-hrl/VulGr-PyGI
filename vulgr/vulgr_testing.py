@@ -6,16 +6,62 @@ import csv
 class timer:
     START_TIME = 0
 
-    def start():
+    def start(self):
         timer.START_TIME = time.time()
         
-    def end(message):
+    def end(self, message):
         if(timer.START_TIME == 0):
             print("call start() method first")
         else:
             print(message + " took " + str(time.time() - timer.START_TIME))
         
+class vulnerable_file:
+    def __init__(self):
+        self.is_source = False
+        self.any = False
+        self.flowsource_is_flowsink = False
+        self.is_flowsink = False
+        self.not_getsourcegroup = False
+        self.path_node_sink_group = False
+        self.path_node_source_group = False
+        self.path_succ = False
+    
+    def check_vulnerability_type(self, name):
+        match name:
+            case "is-source":
+                self.is_source = True
+            case "any":
+                self.any = True
+            case "flowsource-is-flowsink":
+                self.flowsource_is_flowsink = True
+            case "is-flowsink":
+                self.is_flowsink = True
+            case "not-getsourcegroup":
+                self.not_getsourcegroup = True
+            case "path-node-sink-group":
+                self.path_node_sink_group = True
+            case "path-node-source-group":
+                self.path_node_source_group = True
+            case "path-succ":
+                self.path_succ = True
+                
+    def compute_fitness(self):
+        FITNESS_VALUE = 0
+        if (self.is_flowsink):
+            FITNESS_VALUE += 0.35
+        if (self.flowsource_is_flowsink or self.path_succ):
+            FITNESS_VALUE += 0.35
+        if (self.path_node_source_group):
+            FITNESS_VALUE += 0.3
+        else:
+            if(self.is_source):
+                FITNESS_VALUE += 0.15
+            if(self.not_getsourcegroup):
+                FITNESS_VALUE += 0.15
         
+        return FITNESS_VALUE
+        
+
 def create_database():
     """Returns the resulting String after trying to create the CodeQL Database
 
@@ -67,24 +113,50 @@ query_list = ["any",
               "path-succ"
               ]
 
-timer.start()
-db_creation_result = create_database()
-timer.end("database creation")
-if "failed" in db_creation_result:
-    print("failed")
-else:
-    timer.start()
-    print(subprocess.run(execute_all_queries(), shell=True, capture_output=True, text=True, cwd="/content").stderr)
-    timer.end("running all queries")
-    timer.start()
-    for query in query_list:
-        print(subprocess.run(query_command(query), shell=True,
-                    capture_output=True, text=True).stderr)
-    timer.end("individual queries")
-
+# timer.start()
+# db_creation_result = create_database()
+# timer.end("database creation")
+# if "failed" in db_creation_result:
+#     print("failed")
+# else:
+#     timer.start()
+#     print(subprocess.run(execute_all_queries(), shell=True, capture_output=True, text=True, cwd="/content").stderr)
+#     timer.end("running all queries")
+    # timer.start()
+    # for query in query_list:
+    #     print(subprocess.run(query_command(query), shell=True,
+    #                 capture_output=True, text=True).stderr)
+    # timer.end("individual queries")
+    
+    # FILENAME_COLUMN = 4
     # for file in Path("/content/results").glob('*'):
     #     with open(file, 'r') as file:
     #         csvreader = csv.reader(file)
-    #         # for row in csvreader:
-    #         #     print(row)
-    #     print(file.name.split("/")[-1])
+    #         for row in csvreader:
+    #             print(row[FILENAME_COLUMN].split('/')[-1])
+                
+# timer.start()
+# print(subprocess.run(execute_all_queries(), shell=True, capture_output=True, text=True, cwd="/content").stderr)
+# timer.end("running all queries")
+
+FILENAME_COLUMN = 4
+QUERY_NAME_COLUMN = 0
+VULNERABLE_FILES = {}
+VULNERABILITY_NAME = ""
+for file in Path("/content/results").glob('*'):
+    with open(file, 'r') as file:
+        csvreader = csv.reader(file)
+        for row in csvreader:
+            filename = row[FILENAME_COLUMN].split('/')[-1]
+            if filename in VULNERABLE_FILES:
+                VULNERABILITY_NAME = row[QUERY_NAME_COLUMN]
+                VULNERABLE_FILES[filename].check_vulnerability_type(VULNERABILITY_NAME)
+            else:
+                VULNERABLE_FILES[filename] = vulnerable_file
+                
+HIGHEST_FITNESS = 0
+for file in VULNERABLE_FILES:
+    FITNESS = file.compute_fitness()
+    if FITNESS > HIGHEST_FITNESS:
+        HIGHEST_FITNESS = FITNESS
+print(HIGHEST_FITNESS)

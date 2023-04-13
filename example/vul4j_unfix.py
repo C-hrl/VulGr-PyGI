@@ -42,18 +42,15 @@ def run_queries():
     """
     Returns the resulting String after running the queries
     """
-    result_message = subprocess.run(execute_all_queries(), shell=True,
+    subprocess.run(execute_all_queries(), shell=True,
                     capture_output=True, text=True, cwd="/content").stderr
-    NbSuccessfulQuery = result_message.count("Interpreting")
-    return 1 #TODO
-    # print(f"*****\n{NbSuccessfulQuery}/{len(query_list)} queries have been successfully executed!\n*****")
 
+    FILENAME_COLUMN = 4
     for file in Path("/content/results").glob('*'):
         with open(file, 'r') as file:
             csvreader = csv.reader(file)
-            # for row in csvreader:
-            #     print(row)
-        print(file.name.split("/")[-1])
+            for row in csvreader:
+                print(row[FILENAME_COLUMN].split('/')[-1])
 
 class MyProgram(AbstractProgram):
     def compute_fitness(self, result, return_codde, stdout, stderr, elapsed_time):

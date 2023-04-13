@@ -6,10 +6,10 @@ import csv
 class timer:
     START_TIME = 0
 
-    def start(self):
+    def start():
         timer.START_TIME = time.time()
         
-    def end(self, message):
+    def end(message):
         if(timer.START_TIME == 0):
             print("call start() method first")
         else:
@@ -148,9 +148,9 @@ query_list = ["any",
     #         for row in csvreader:
     #             print(row[FILENAME_COLUMN].split('/')[-1])
                 
-# timer.start()
-# print(subprocess.run(execute_all_queries(), shell=True, capture_output=True, text=True, cwd="/content").stderr)
-# timer.end("running all queries")
+timer.start()
+print(subprocess.run(execute_all_queries(), shell=True, capture_output=True, text=True, cwd="/content").stderr)
+timer.end("running all queries")
 
 FILENAME_COLUMN = 4
 QUERY_NAME_COLUMN = 0

@@ -155,7 +155,6 @@ timer.end("running all queries")
 FILENAME_COLUMN = 4
 QUERY_NAME_COLUMN = 0
 VULNERABLE_FILES = {}
-VULNERABILITY_NAME = ""
 for file in Path("/content/results").glob('*'):
     with open(file, 'r') as file:
         csvreader = csv.reader(file)
@@ -165,11 +164,11 @@ for file in Path("/content/results").glob('*'):
                 VULNERABILITY_NAME = row[QUERY_NAME_COLUMN]
                 VULNERABLE_FILES[filename].check_vulnerability_type(VULNERABILITY_NAME)
             else:
-                VULNERABLE_FILES[filename] = vulnerable_file
+                VULNERABLE_FILES[filename] = vulnerable_file()
                 
 HIGHEST_FITNESS = 0
 for file in VULNERABLE_FILES:
-    FITNESS = file.compute_fitness()
+    FITNESS = VULNERABLE_FILES[file].compute_fitness()
     if FITNESS > HIGHEST_FITNESS:
         HIGHEST_FITNESS = FITNESS
 print(HIGHEST_FITNESS)

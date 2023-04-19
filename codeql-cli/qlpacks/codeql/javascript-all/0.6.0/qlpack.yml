@@ -1,0 +1,19 @@
+---
+library: true
+warnOnImplicitThis: false
+name: codeql/javascript-all
+version: 0.6.0
+buildMetadata:
+  sha: 2aba24da0c6b840e6709e9ee7b2707ad5f42f8e3
+  cliVersion: 2.13.0
+dependencies:
+  codeql/regex: 0.0.11
+  codeql/tutorial: 0.0.8
+  codeql/util: 0.0.8
+dbscheme: semmlecode.javascript.dbscheme
+extractor: javascript
+upgrades: upgrades
+groups:
+ - javascript
+dataExtensions:
+ - semmle/javascript/frameworks/**/model.yml

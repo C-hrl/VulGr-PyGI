@@ -1,0 +1,20 @@
+---
+library: true
+warnOnImplicitThis: false
+name: codeql/ruby-all
+version: 0.6.0
+buildMetadata:
+  sha: 2aba24da0c6b840e6709e9ee7b2707ad5f42f8e3
+  cliVersion: 2.13.0
+dependencies:
+  codeql/regex: 0.0.11
+  codeql/ssa: 0.0.15
+  codeql/tutorial: 0.0.8
+  codeql/util: 0.0.8
+dbscheme: ruby.dbscheme
+extractor: ruby
+upgrades: upgrades
+groups:
+ - ruby
+dataExtensions:
+ - codeql/ruby/frameworks/**/model.yml

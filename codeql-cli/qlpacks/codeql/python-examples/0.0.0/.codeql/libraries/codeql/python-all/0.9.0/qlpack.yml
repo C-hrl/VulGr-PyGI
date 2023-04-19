@@ -1,0 +1,16 @@
+---
+library: true
+warnOnImplicitThis: false
+name: codeql/python-all
+version: 0.9.0
+dependencies:
+  codeql/regex: 0.0.11
+  codeql/tutorial: 0.0.8
+  codeql/util: 0.0.8
+dbscheme: semmlecode.python.dbscheme
+extractor: python
+upgrades: upgrades
+groups:
+ - python
+dataExtensions:
+ - semmle/python/frameworks/**/model.yml

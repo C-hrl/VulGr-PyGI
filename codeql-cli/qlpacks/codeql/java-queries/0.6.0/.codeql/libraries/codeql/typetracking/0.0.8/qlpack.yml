@@ -1,0 +1,9 @@
+---
+library: true
+warnOnImplicitThis: false
+name: codeql/typetracking
+version: 0.0.8
+dependencies:
+  codeql/util: 0.0.8
+groups:
+ - shared

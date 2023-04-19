@@ -1,0 +1,12 @@
+---
+library: false
+warnOnImplicitThis: false
+name: codeql/cpp-examples
+buildMetadata:
+  sha: 2aba24da0c6b840e6709e9ee7b2707ad5f42f8e3
+  cliVersion: 2.13.0
+dependencies:
+  codeql/cpp-all: 0.7.0
+groups:
+ - cpp
+ - examples

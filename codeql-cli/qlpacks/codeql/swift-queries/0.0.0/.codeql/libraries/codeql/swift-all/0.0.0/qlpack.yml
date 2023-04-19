@@ -1,0 +1,14 @@
+---
+library: true
+warnOnImplicitThis: false
+name: codeql/swift-all
+version: 0.0.0
+dependencies:
+  codeql/ssa: 0.0.15
+  codeql/tutorial: 0.0.8
+  codeql/util: 0.0.8
+dbscheme: swift.dbscheme
+extractor: swift
+upgrades: upgrades
+groups:
+ - swift

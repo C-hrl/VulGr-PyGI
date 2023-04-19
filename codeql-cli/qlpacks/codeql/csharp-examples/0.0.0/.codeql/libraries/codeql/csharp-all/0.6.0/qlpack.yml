@@ -1,0 +1,17 @@
+---
+library: true
+warnOnImplicitThis: false
+name: codeql/csharp-all
+version: 0.6.0
+dependencies:
+  codeql/ssa: 0.0.15
+  codeql/tutorial: 0.0.8
+  codeql/util: 0.0.8
+dbscheme: semmlecode.csharp.dbscheme
+extractor: csharp
+upgrades: upgrades
+groups:
+ - csharp
+dataExtensions:
+ - ext/*.model.yml
+ - ext/generated/*.model.yml

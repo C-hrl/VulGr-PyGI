@@ -1,0 +1,30 @@
+#!/bin/bash -xeu
+
+. "$AUTOBUILD_ROOT/lib/build.sh"
+
+if [[ -L _lgtm_detected_source_root ]]; then
+  cd "$(readlink _lgtm_detected_source_root)"
+fi
+
+if [[ -d _lgtm_build_dir ]]; then
+  pushd _lgtm_build_dir
+else
+  pushd .
+fi
+
+[[ -f SConstruct ]] && try_running scons && exit 0
+[[ -f wscript && -x waf ]] && try_running ./waf && exit 0
+[[ -f Makefile || -f makefile || -f GNUmakefile ]] && try_running make && exit 0
+[[ -f build.ninja ]] && try_running ninja && exit 0
+
+popd
+
+for f in build build.sh; do
+  [[ -x $f && -f $f ]] && try_running ./$f && exit 0
+done
+
+[[ -f setup.py ]] && try_running python setup.py build && exit 0
+
+[[ -n "$(find . -name '*.vcxproj' | head -1)" ]] && emit_diagnostics expected-windows
+
+tried_everything

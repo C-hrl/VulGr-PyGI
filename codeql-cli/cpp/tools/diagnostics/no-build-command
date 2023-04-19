@@ -1,0 +1,7 @@
+SOURCE_ID=cpp/autobuilder/no-build-command
+SOURCE_NAME="No supported build system detected"
+SEVERITY=error
+HELP_LINKS=(https://docs.github.com/en/enterprise-server/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/customizing-code-scanning)
+MARKDOWN_MESSAGE="CodeQL could not detect the build command.
+
+Set up a [manual build command](${HELP_LINKS[0]})."

@@ -1,0 +1,11 @@
+# This CodeQL workspace file is designed to be placed in
+# `experimental/codeql-workspace.yml` within a CodeQL CLI distribution.
+# It hides all subdirectories of `experimental` from the CLI's default pack discovery,
+# even if `experimental` is discoverable.
+
+# To detect (extractor) packs within `experimental/<subdirectory>`,
+# the subdirectory must be manually provided to the CLI via
+# command-line arguments or an internal environment variable.
+
+# Suppress the default search within children of the `experimental` directory.
+provide: []

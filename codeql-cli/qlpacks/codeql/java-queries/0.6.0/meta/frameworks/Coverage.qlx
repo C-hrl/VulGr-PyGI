@@ -1,0 +1,25 @@
+ #      Precompiled CodeQL query
+---
+format:
+- 202210190
+creator: 2.13.0
+name: Coverage.ql
+dbscheme: 7cbc85b1f3ecda39661ad4806dedbd0973d2c4c0
+stages:
+- offset: 1
+results:
+  '#select':
+    resultArranger: 5"package"s"pkgs"i"kind"s"part"s"n"i
+inputsDigest: 5e4c399e17969285cd0bb7e8b75eb1276dad9076
+metadata:
+  name: Framework coverage
+  description: "The number of API endpoints covered by CSV models sorted by\n    \
+    \          package and source-, sink-, and summary-kind."
+  kind: table
+  id: java/meta/framework-coverage
+
+---
+...
+dQLXst:20230317xÚÝVÍrÓ0¾û)D}Ž-ÙIšÊ´0e¦3@;“Âôæ¨ŽâÈqdW’Û”GâÔ3ïÀ+ÀS°+§i
+-CËL)øðÙÚ]¯>}ZýslÜC‚`#œ–sêZ)¡Ã³RÏB#æóB´Òr,®}[®3aÃŠ§3ãÐ™OŠ–³\6Z9?å­“Zh)LðAVKÚxÃugHƒn@Ã`é*ä±æÎ¾Ë‹b×PqNç
+ÇÜòIQž…»+´âÅ+hà·2²T&8)Š-Ö	òã™ ö¼ÄÔÇø6Dñ9´d¦¸­µ ba‰TUmÉLª1©ty*W)Æ¨ÙèµðŽÖ”£;¥.k{cî²Ö©ø1;¦ß½óÛ:©çs®Ï›^£Þ˜šöÖ­;tÿÃrpEpñ‘µ£•–ënŸÆ”wã>´(Ä)Wö 	ó™?ñ¥£`äU4EÅb~9øü•2°o‡•¹@Ë7A(èšÓ6£ÌÛc7…Ø¯™–ÚV³Œ¥Êð}%¿×Pm~äO°wLÅ†˜é‹£!Åéïþž0F#óRªDOgz”zœ2æñA„T;hÃÜï±-`KWú@™ý‚eÊU©dÊ‹ƒYvE5£”¥ÀÕÈGQCsay8Ñ°L0Ð„/a)hTÃÆ3.•`$¹Ë@}3åZŒ±0`áàtƒ”{,Fï4¹…K&9}ËXŸÆíNw³ç$”LÄöqiöy@„#´:]„M„BßS’<À8’ÄOËZÙDs•	¬¤ÈUÒÌ“`„V‹&oR·søÏªë³Ç¥/ðÉ{ïóK‰ûþS§qÿý•Æ&2"ûRGLêÈË·ñtŠGxŸµ½|§ß4Ý/¢ÆÐ\ÀR3ZÇp@ìé±:#à€0Ëk×–(â8>Sëã>|àñžÓ¥Õ{òf*‰~

@@ -1,0 +1,30 @@
+ #      Precompiled CodeQL query
+---
+format:
+- 202210190
+creator: 2.13.0
+name: LinesOfCode.ql
+dbscheme: cd877b8cc2fb8327499f96fbefd01bb988b2ed63
+stages:
+- offset: 1
+results:
+  '#select':
+    resultArranger: 10i
+inputsDigest: 4785b4b52a4a0024b869cdaf1a9859c791ab3bf1
+metadata:
+  id: cs/summary/lines-of-code
+  name: Total lines of C# code in the database
+  description: "The total number of lines of code across all files. This is a useful\
+    \ metric of the size of a database. For all files that were seen during the build,\
+    \ this query counts the lines of code, excluding whitespace or comments."
+  kind: metric
+  tags: |-
+    summary
+           lines-of-code
+
+---
+...
+dQLXst:20230317xÚÕTMoÓ@½ûW,ñ…VŠ½k;¡µ #Y´nPÇ'›®?²»-G~wþ@ÿî\9pàÌ•Y'I+U	T.ëñ¼Éìó{“‰"N§çÎê\ÙVH÷m-O]e) ŸÕ9lÄ:•SÐn“f§ª;»ôBô»ÌåK?S³T6ýE’ƒrÞñÆéÚ.qwv©3t¨ë¬@Á'2íò›Õ©«Ê%!ƒ:KÌÉ'*›A	½‹,‚ %â]”À™–i¦y]%&iEQFzñy‡„ç¤JËe¡ºD¾o µÈA"œsƒ~aÁ×U:1Um™^ê"Ck”¦ÂÄj)Ÿ>t'\?ªr÷óóO,MàCQjÅlý·^tð
+tŸ ”ÎBˆÞ{ß_=ãŠ˜”ÍÒÁ`Xƒ04¯a¸²òâ%(mS;çª‘Û…5§CF=”'cc	ªne†$”n'Êwryþ.êEç}zÃ\ð7ØP…”m÷î«7îÉöþÖÝ×†ÎÉöÖÖþØj¨+a
+gÍAÚèV‚ñç+óÐŸûx]€öì¡Á·ÞŸVsãuv62FŒÑ¹ÒPvÆ|ÄÃ¥h¨m+4ù…ÛyÁv ßMÃð(=ûŠªqÕ´ÚÃƒºÒ)NµCüÆèLC¥ðÿµî!jN™™k¦€8¬öƒ`DPjöw®Lµç5¯9SV6"lœ©ñœ2æY)Ý5düˆÐæ¥u9ê¦íÊ80êãÐ±Ç€;€}Ö\ðZ3¤ù¬-' ‹C³Ž‹ôd­ñ;{”Y9™wk†ë´ä™rGmY.‡k=ÎOï>£ÒÈz™¶m…«Ÿ¦Ç¹]ØU+D*Ï­¹?`øi1P1ºî|òÊ'(l’Ø
+w°L«)XóÁ=¤b¸q‡o’ÁÃû—Œ4ÈÒÊbÂ8MéÀšU-£1q.í¬äŠ Ö]e¬;?*!šï

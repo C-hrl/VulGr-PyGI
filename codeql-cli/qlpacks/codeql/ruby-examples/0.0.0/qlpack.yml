@@ -1,0 +1,12 @@
+---
+library: false
+warnOnImplicitThis: false
+name: codeql/ruby-examples
+buildMetadata:
+  sha: 2aba24da0c6b840e6709e9ee7b2707ad5f42f8e3
+  cliVersion: 2.13.0
+dependencies:
+  codeql/ruby-all: 0.6.0
+groups:
+ - ruby
+ - examples

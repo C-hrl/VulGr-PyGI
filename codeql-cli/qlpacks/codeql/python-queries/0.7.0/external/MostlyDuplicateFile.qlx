@@ -1,0 +1,37 @@
+ #      Precompiled CodeQL query
+---
+format:
+- 202210190
+creator: 2.13.0
+name: MostlyDuplicateFile.ql
+dbscheme: 47e552c4357a04c5735355fad818630daee4a5ac
+stages:
+- filename: 7e6bab65t8ttk4lamidqscgfa62.bytes.qlx
+- offset: 1
+results:
+  '#select':
+    resultArranger: 4"m"ei12"message"s"other"ei120s
+inputsDigest: 47c46f2b160fbedb83685aff57272038de71db15
+metadata:
+  deprecated: ""
+  name: Mostly duplicate module
+  description: There is another file that shares a lot of the code with this file.
+    Merge the two files to improve maintainability.
+  kind: problem
+  tags: |-
+    testability
+           maintainability
+           useless-code
+           duplicate-code
+           statistical
+           non-attributable
+  problem.severity: recommendation
+  sub-severity: high
+  precision: high
+  id: py/mostly-duplicate-file
+
+---
+...
+dQLXst:20230317xÚİU1oÓ@Şó+L<ÇöÅuC„„ÒTD@…„B²û¥9õ|vïÎ°!!!66V6&PŒ¬ÌìL V~ïî%®ZQ:QÎR|÷¾Ï_ü¾{ï<U)”ƒ­0
+ó,m`¢RÇ î”yÍ`´¨„¸9••€Üp<¯ëÏË|QsÂRŠC_BQ0èee­9Š¡”_¥Ù¡4¿&|Äz&²Zôª¥š—¼wTƒ  ½§´òŒ¬Åı6ìŞÀ|¯ŠÔÄÛì”1dî Ó¾P÷mšŞcİã¯áö–£æT:dÍ”sSÜÙ¬3±€»}fY0ˆâ¸0ı´€=Q{Aâ@véí³‰Zû¾“qß™aj+ûÎå‚ñK[(İ’Ñ`»ÇzÇªœ(AùÁfÅ]~ËL®Æ±kaÔ®·óÚ`<»!Õh¡€ç¸Nwá‰qŒÑ}|S·Ë,U´äÿWÇnäm\¼öïµ\¼ˆ1ÚÑÑèò—F=‹yùTfs( û–D÷š;Î4¦´9ï	y°J–ƒĞP¿&ÑDã¶_)P~›òf6,Y]p61¼7ÖØ*“TªM½W9ş^-‡YŠ‹Š#TûğŒGZ­JpåTËdÈR)Mv†ğœi›°WóÌhu,ã	ŒÙCÊ¦¯¡—¤sãaš/4ËvàİT¨5óİ©Ì¬,° æÀeóÔ²?‘Ğ°)?ùHN3•PÅZûË©Ú€çAÂ¨TºŸÏÖÕtdêßàñjCÍ> Á.“*Uóµà·³‘¨@ğ•Ñ2ÓT™••4“dµskÍŸgkJUèt2KüujŞRa0Ç8†«{gìŸı3ımTÊğ)[îÖ£h
+èoZİ]Òè$¸\	ØÙÊÕÒK<¡Ú£s=h+¿xërù

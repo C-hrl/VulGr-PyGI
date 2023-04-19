@@ -1,0 +1,19 @@
+---
+library: false
+warnOnImplicitThis: false
+name: codeql/javascript-queries
+version: 0.6.0
+buildMetadata:
+  sha: 2aba24da0c6b840e6709e9ee7b2707ad5f42f8e3
+  cliVersion: 2.13.0
+dependencies:
+  codeql/javascript-all: 0.6.0
+  codeql/suite-helpers: 0.5.0
+  codeql/typos: 0.0.15
+  codeql/util: 0.0.8
+suites: codeql-suites
+extractor: javascript
+groups:
+ - javascript
+ - queries
+defaultSuiteFile: codeql-suites/javascript-code-scanning.qls

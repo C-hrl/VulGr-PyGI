@@ -1,0 +1,25 @@
+ #      Precompiled CodeQL query
+---
+format:
+- 202210190
+creator: 2.13.0
+name: ExtractionWarnings.ql
+dbscheme: 7cbc85b1f3ecda39661ad4806dedbd0973d2c4c0
+stages:
+- offset: 1
+results:
+  '#select':
+    resultArranger: 2"msg"s"sev"i
+inputsDigest: a678408848cf072fa97e0fa8b44faeaa8720f2a0
+metadata:
+  name: Extraction warnings
+  description: A list of extraction warnings for files in the source code directory.
+  kind: diagnostic
+  id: java/diagnostics/extraction-warnings
+
+---
+...
+dQLXst:20230317xÚÍQMÎÓ0İçC»Â'„@B‚"UbT!–‰kOÒi;µÊ©Xr	œƒK|NĞŞ€ÍhüæÍÌó›ÍF“Ö±?øyÃÀ?ûpâûŞb©½Á›<©ĞaâƒÒ§8Ç>ÛrFş<Ê£zPåyÄ@ÙWØ<ôw•_¹`Ï˜àl)YÚ5ã×\eíÂÓŞµÔ-Š&
+3û¨ØãêÛwùü)ó/TBSï/ñ!ïIÀ|¨“ê–¬ÇU‡ĞÖÖ·õZ%ò©Îù˜HÇ"Šê®ØJIÄ²b
+òšSWwë£'W‡C,ô$UG!e•Ûª7 ÀŒ}yGhÁQ§õí†{¾uYnÄ×Ã€ÎğŸ~üjv'r¼÷ıŞŸJ4ıòáZ²øš¦¹—5#‚oLy,|ArR´£ÿâòoÿ9À7_RPz²ş“
+.KìlW/eu}ì¦[Â:¢Œ›†\Öm[¼T<ykœ

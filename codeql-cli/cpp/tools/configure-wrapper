@@ -1,0 +1,25 @@
+#!/bin/bash -xeu
+
+. "$AUTOBUILD_ROOT/lib/build.sh"
+
+name="$1"
+
+# Run configure and exit if it's successful
+try_running "$@" 2>&1 && exit 0
+
+echo
+echo "$0: Configure failed"
+
+argument="$(
+  tail -n 10 $(get_failed_command_output_file "$name") | \
+    grep 'configure: error: ' | \
+    grep -E -o -- '--[-_.=a-zA-Z0-9]+' | \
+    head -n 1
+)"
+
+if [ -n "$argument" ]; then
+  echo "$0: Running configure again with argument $argument"
+  echo
+  try_running "$@" "$argument" && exit 0
+fi
+exit 1

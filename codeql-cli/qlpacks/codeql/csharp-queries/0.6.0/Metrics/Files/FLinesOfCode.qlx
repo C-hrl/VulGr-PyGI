@@ -1,0 +1,31 @@
+ #      Precompiled CodeQL query
+---
+format:
+- 202210190
+creator: 2.13.0
+name: FLinesOfCode.ql
+dbscheme: cd877b8cc2fb8327499f96fbefd01bb988b2ed63
+stages:
+- offset: 1
+results:
+  '#select':
+    resultArranger: 2"f"ei11"n"i
+    sortFields:
+    - -2
+inputsDigest: e84d011f29e5b9e48e3e38bdd25f4a192bb1e774
+metadata:
+  name: Lines of code in files
+  description: Files with a large number of lines might be difficult to understand
+    and increase the chance of merge conflicts.
+  kind: treemap
+  treemap.warnOn: highValues
+  metricType: file
+  metricAggregate: avg sum max
+  id: cs/lines-of-code-in-files
+  tags: |-
+    maintainability
+           complexity
+
+---
+...
+dQLXst:20230317xÚİUÍNÛ@¾ûz^bpˆ=ëØ!JU!Ó¦M‚"!õ,ñšlXÛ‰w­Bo½õú\x€¾G_ ‡¾Cg×¡%B•zàPªHëÙıfçç›™M’Lˆçµüi™s¿ª‹‚Wş‡²ºôÏsÉÛ“2å+²fÕ×şœM.•]íñB¶íÉİ¦=QSVÍÛ‹šW‚+ï£˜{Ölƒû«°^×ß[‚RœWÌ¯j3)—šM@õÌKÏÕdÊsŞºùNƒ))XÎI&$WNb’„›+H)S^!Æ…ıFÃ!ámzd´ê|$EÁ••Œ¯¥#[Ôç‚£…Û5½ùeÎ*TÃH¯l(^å2iÜÅtûŒGæ/Ğƒ(.¬ÎRvê°Ó‡§P ZSğz+'˜öÉµÒ<÷R¶>íÂ[¢§B‘Š«ZjòwÓŒöxºÍâxÈ.¹k—²(êfİ0ûÅ¼Önï—…fÈzÇ˜ãËsUÊZó#¦§n–9³.Pğ6Æ†íØ÷ÇqÍo¼éôƒ-š¨'Ûë^‚–WËhÖÏ½Ç›ÙZªN.¸©PóŠ§–«0¤àÌ¢.®5…>İJşnÎ†KÍûN6Ôà‰Ğˆnw³,ÏrydGÓ=wfĞÃôû”bîğ¥§¸`YÍÖ¤ŒnSÎv8Îfpó5ŠfÖ×º<Ñÿj¹zNÑcğïTiÈ1Î‰²ÍˆëÀ<†‡Ù¾y“²õ‚ÒÙ	AïğølŒÀeø´ÎJQŒª©rÔsSÄ½„À=3½ÂúÂ…~¶(Pü¯q;Ş(J¢l$Xc¼­°˜e±9vtq†˜A‚Rœª]sgŒÒáÂ:]‡µv¬Vó ¼;æJ	$#™{—(Šu%IA\…ÿEíÒ¯1Vl‚=X:k?’|œ°

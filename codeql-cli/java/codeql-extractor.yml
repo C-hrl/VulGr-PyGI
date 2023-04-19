@@ -1,0 +1,26 @@
+name: "java"
+display_name: "Java"
+version: 1.22.1
+column_kind: utf16
+github_api_languages:
+  - Java
+  - Kotlin
+scc_languages:
+  - Java
+  - Kotlin
+file_types:
+  - name: java
+    display_name: Java sources
+    extensions:
+      - .java
+  - name: kotlin
+    display_name: Kotlin sources
+    extensions:
+      - .kt
+legacy_qltest_extraction: true
+options:
+  exclude:
+    title: A glob excluding files from analysis.
+    description: >
+      A glob indicating what files to exclude from the analysis.
+    type: string
